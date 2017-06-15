@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <im.ene.toro.exoplayer.ExoVideoView
+        android:id="@+id/demo_video_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:id="@+id/videoPlayerWithAdPlayback"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+            style="?attr/buttonBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="#ccf5f5f5"
+            android:gravity="bottom"
+            android:orientation="horizontal"
+            >
+
+            <Button
+                android:id="@+id/start"
+                style="?attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:padding="16dp"
+                android:text="Start"
+                />
+
+            <Button
+                android:id="@+id/close"
+                style="?attr/buttonBarButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:padding="16dp"
+                android:text="Close"
+                />
+        </LinearLayout>
+    </im.ene.toro.exoplayer.ExoVideoView>
+
+</FrameLayout>

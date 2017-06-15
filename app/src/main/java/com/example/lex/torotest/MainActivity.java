@@ -1,25 +1,32 @@
 package com.example.lex.torotest;
 
-import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+
+import com.google.ads.interactivemedia.v3.api.AdDisplayContainer;
+import com.google.ads.interactivemedia.v3.api.AdErrorEvent;
+import com.google.ads.interactivemedia.v3.api.AdEvent;
+import com.google.ads.interactivemedia.v3.api.AdsLoader;
+import com.google.ads.interactivemedia.v3.api.AdsManagerLoadedEvent;
+import com.google.ads.interactivemedia.v3.api.AdsRequest;
+import com.google.ads.interactivemedia.v3.api.ImaSdkFactory;
+import com.google.ads.interactivemedia.v3.api.player.ContentProgressProvider;
+import com.google.ads.interactivemedia.v3.api.player.VideoProgressUpdate;
 
 import im.ene.toro.Toro;
-import im.ene.toro.exoplayer.ExoVideoView;
-import im.ene.toro.exoplayer.Media;
+import im.ene.toro.exoplayer.PlayerCallback;
+import im.ene.toro.exoplayer.internal.ExoMediaPlayer;
 
 public class MainActivity extends AppCompatActivity {
-    private ExoVideoView toro;
-
-    private Button start;
-    private Button close;
+    private RecyclerView list;
 
     private void assignViews() {
-        toro = (ExoVideoView) findViewById(R.id.demo_video_view);
-        start = (Button) findViewById(R.id.start);
-        close = (Button) findViewById(R.id.close);
+        list = (RecyclerView) findViewById(R.id.list);
+        list.setAdapter(new FeedAdapter());
+        list.setLayoutManager(new LinearLayoutManager(this));
     }
 
     @Override
@@ -27,15 +34,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         assignViews();
-        toro.releasePlayer();
-        toro.setMedia(new Media(Uri.parse("https://staging-static.life.ru/posts/2017/01/961484/video/71585449ccb21f25ec65047e024da435.mp4")));
-        start.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                toro.seekTo(0);
-                toro.start();
-            }
-        });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Toro.register(list);
+    }
+
+    @Override
+    protected void onPause() {
+        Toro.unregister(list);
+        super.onPause();
+    }
 }
